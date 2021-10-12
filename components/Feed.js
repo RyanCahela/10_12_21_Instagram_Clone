@@ -22,7 +22,7 @@ function Feed() {
 
       <section className="hidden xl:inline-grid md:col-span-1">
         {/* Section Right */}
-        {session ? (
+        {session && (
           <div className="fixed">
             {/* Mini Profile */}
 
@@ -30,8 +30,6 @@ function Feed() {
             {/* Suggestions */}
             <Suggestions />
           </div>
-        ) : (
-          <div></div>
         )}
       </section>
     </main>
