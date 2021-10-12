@@ -35,6 +35,7 @@ function Posts() {
           username={post.username}
           userImg={post.userImg}
           caption={post.caption}
+          img={post.img}
         />
       ))}
     </div>
