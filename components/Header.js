@@ -1,6 +1,9 @@
 import React from "react";
 import Image from "next/image";
 import { useSession, signIn, signOut } from "next-auth/react";
+import { useRouter } from "next/router";
+import { useRecoilState } from "recoil";
+import { modalState } from "../atoms/modalAtom";
 
 import {
   SearchIcon,
@@ -15,6 +18,8 @@ import { HomeIcon } from "@heroicons/react/outline";
 
 function Header() {
   const { data: session } = useSession();
+  const { isOpen, setIsOpen } = useRecoilState(modalState);
+  const router = useRouter();
 
   console.log(session);
 
@@ -22,14 +27,18 @@ function Header() {
     <div className="shadow-sm border-b bg-white sticky top-0 z-50">
       <div className="flex justify-between align-center max-w-6xl mx-5 lg:mx-auto">
         {/* Left */}
-        <div className="relative hidden lg:inline-grid w-24 h-24">
+        <div
+          onClick={() => router.push("/")}
+          className="relative hidden lg:inline-grid w-24 h-24">
           <Image
             src="https://links.papareact.com/ocw"
             layout="fill"
             objectFit="contain"
           />
         </div>
-        <div className="relative inline-grid lg:hidden w-10 h-10 flex-shrink-0">
+        <div
+          onClick={() => router.push("/")}
+          className="relative inline-grid lg:hidden w-10 h-10 flex-shrink-0">
           <Image
             src="https://links.papareact.com/jjm"
             layout="fill"
@@ -55,7 +64,7 @@ function Header() {
 
         {/* Right */}
         <div className="flex items-center justify-end space-x-4">
-          <HomeIcon className="navButton" />
+          <HomeIcon onClick={() => router.push("/")} className="navButton" />
           <MenuIcon className="h-6 md:hidden cursor-pointer" />
           {session ? (
             <>
@@ -65,7 +74,10 @@ function Header() {
                   3
                 </div>
               </div>
-              <PlusCircleIcon className="navButton" />
+              <PlusCircleIcon
+                onClick={() => setIsOpen(true)}
+                className="navButton"
+              />
               <UserGroupIcon className="navButton" />
               <HeartIcon className="navButton" />
 
