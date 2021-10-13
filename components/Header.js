@@ -18,10 +18,9 @@ import { HomeIcon } from "@heroicons/react/outline";
 
 function Header() {
   const { data: session } = useSession();
-  const { isOpen, setIsOpen } = useRecoilState(modalState);
+  const [isOpen, setIsOpen] = useRecoilState(modalState);
+  console.log("header isOpen", isOpen);
   const router = useRouter();
-
-  console.log(session);
 
   return (
     <div className="shadow-sm border-b bg-white sticky top-0 z-50">

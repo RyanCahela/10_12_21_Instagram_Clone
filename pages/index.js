@@ -6,7 +6,6 @@ import { useRecoilState } from "recoil";
 import { modalState } from "../atoms/modalAtom";
 
 export default function Home() {
-  const [isOpen, setIsOpen] = useRecoilState(modalState);
   return (
     <div className="bg-gray-50 h-screen overflow-y-scroll scrollbar-hide">
       <Head>
@@ -15,12 +14,12 @@ export default function Home() {
       </Head>
       {/* Header */}
       <Header />
+      <Modal />
 
       {/* Feed */}
       <Feed />
 
       {/* Modal */}
-      <Modal />
     </div>
   );
 }
