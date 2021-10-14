@@ -5,7 +5,7 @@ import {
   ChatIcon,
   BookmarkIcon,
   PaperAirplaneIcon,
-} from "@heroicons/react/outline"; //Empty Heart :(
+} from "@heroicons/react/outline";
 import { setDoc, deleteDoc, doc } from "@firebase/firestore";
 import { db } from "../firebase";
 import { useSession } from "next-auth/react";
@@ -14,11 +14,13 @@ function PostButtons({ likes, postId }) {
   const { data: session } = useSession();
   const [hasLiked, setHasLiked] = useState(false);
 
-  useEffect(() => {
-    return setHasLiked(
+  const determineIfViwingUserAlreadyLiked = () => {
+    setHasLiked(
       likes.findIndex((like) => like.id === session?.user?.uid) !== -1
     );
-  }, [likes]);
+  };
+
+  useEffect(determineIfViwingUserAlreadyLiked, [likes]);
 
   const likePost = async () => {
     if (hasLiked) {
@@ -29,25 +31,24 @@ function PostButtons({ likes, postId }) {
       });
     }
   };
+
   return (
     <>
-      {session && (
-        <div className="flex justify-between px-4 pt-4">
-          <div className="flex space-x-4">
-            {hasLiked ? (
-              <HeartIconFilled
-                onClick={likePost}
-                className="button text-red-500"
-              />
-            ) : (
-              <HeartIconEmpty onClick={likePost} className="button" />
-            )}
-            <ChatIcon className="button" />
-            <PaperAirplaneIcon className="button" />
-          </div>
-          <BookmarkIcon className="button" />
+      <div className="flex justify-between px-4 pt-4">
+        <div className="flex space-x-4">
+          {hasLiked ? (
+            <HeartIconFilled
+              onClick={likePost}
+              className="button text-red-500"
+            />
+          ) : (
+            <HeartIconEmpty onClick={likePost} className="button" />
+          )}
+          <ChatIcon className="button" />
+          <PaperAirplaneIcon className="button" />
         </div>
-      )}
+        <BookmarkIcon className="button" />
+      </div>
     </>
   );
 }

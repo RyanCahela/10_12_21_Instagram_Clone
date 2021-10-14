@@ -6,7 +6,7 @@ import { db } from "../firebase";
 function Posts() {
   const [posts, setPosts] = useState([]);
 
-  useEffect(() => {
+  const getPostsOnDbChange = () => {
     const unsubscribe = onSnapshot(
       query(collection(db, "posts"), orderBy("timestamp", "desc")),
       (snapshot) => {
@@ -14,7 +14,9 @@ function Posts() {
       }
     );
     return unsubscribe;
-  }, [db]);
+  };
+
+  useEffect(getPostsOnDbChange, [db]);
 
   return (
     <div>

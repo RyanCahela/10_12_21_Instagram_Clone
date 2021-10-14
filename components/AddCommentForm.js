@@ -21,27 +21,26 @@ function AddCommentForm({ postId }) {
       timestamp: serverTimestamp(),
     });
   };
+
   return (
     <>
-      {session && (
-        <form className="flex items-center p-4">
-          <EmojiHappyIcon className="h-7" />
-          <input
-            className="border-none flex-1 focus:ring-0 outline-none"
-            value={newComment}
-            onChange={(e) => setNewComment(e.target.value)}
-            type="text"
-            placeholder="Add a comment"
-          />
-          <button
-            type="submit"
-            disabled={!newComment.trim()}
-            onClick={sendComment}
-            className="font-semibold text-blue-400">
-            Post
-          </button>
-        </form>
-      )}
+      <form className="flex items-center p-4">
+        <EmojiHappyIcon className="h-7" />
+        <input
+          className="border-none flex-1 focus:ring-0 outline-none"
+          value={newComment}
+          onChange={(e) => setNewComment(e.target.value)}
+          type="text"
+          placeholder="Add a comment"
+        />
+        <button
+          type="submit"
+          disabled={!newComment.trim()}
+          onClick={sendComment}
+          className="font-semibold text-blue-400">
+          Post
+        </button>
+      </form>
     </>
   );
 }
