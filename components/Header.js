@@ -67,7 +67,7 @@ function Header() {
           <MenuIcon className="h-6 md:hidden cursor-pointer" />
           {session ? (
             <>
-              <div className="relative naveButton">
+              <div className="relative navButton">
                 <PaperAirplaneIcon className="navButton rotate-45" />
                 <div className="absolute -top-2 -right-2 text-xs w-5 h-5 bg-red-500 rounded-full flex items-center justify-center animate-pulse text-white">
                   3
