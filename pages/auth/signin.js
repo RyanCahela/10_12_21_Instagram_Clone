@@ -1,9 +1,11 @@
 import React from "react";
 import { getProviders, signIn as SignIntoProvider } from "next-auth/react";
 import Header from "../../components/Header";
+import { useRouter } from "next/router";
 
 //browser
 function signIn({ providers }) {
+  const callbackUrl = useRouter().query;
   return (
     <>
       <Header />
@@ -18,7 +20,7 @@ function signIn({ providers }) {
               <button
                 className="p-3 rounded-lg bg-blue-500 text-white"
                 onClick={() =>
-                  SignIntoProvider(provider.id, { callbackUrl: "/" })
+                  SignIntoProvider(provider.id, { callbackUrl: callbackUrl })
                 }>
                 Sign in with {provider.name}
               </button>
