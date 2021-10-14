@@ -3,30 +3,6 @@ import Post from "./Post";
 import { collection, orderBy, query, onSnapshot } from "@firebase/firestore";
 import { db } from "../firebase";
 
-const posts = [
-  {
-    id: 123,
-    username: "ryanc",
-    userImg: "https://links.papareact.com/3ke",
-    img: "https://links.papareact.com/3ke",
-    caption: "SUBSCRIBE AND DESTROY TEH LIKE BUTTON for the YT algorithm!",
-  },
-  {
-    id: 124,
-    username: "ryanc",
-    userImg: "https://links.papareact.com/3ke",
-    img: "https://links.papareact.com/3ke",
-    caption: "SUBSCRIBE AND DESTROY TEH LIKE BUTTON for the YT algorithm!",
-  },
-  {
-    id: 125,
-    username: "ryanc",
-    userImg: "https://links.papareact.com/3ke",
-    img: "https://links.papareact.com/3ke",
-    caption: "SUBSCRIBE AND DESTROY TEH LIKE BUTTON for the YT algorithm!",
-  },
-];
-
 function Posts() {
   const [posts, setPosts] = useState([]);
 
@@ -40,8 +16,6 @@ function Posts() {
 
     return unsubscribe;
   }, [db]);
-
-  console.log(posts);
 
   return (
     <div>

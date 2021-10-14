@@ -19,7 +19,6 @@ import { HomeIcon } from "@heroicons/react/outline";
 function Header() {
   const { data: session } = useSession();
   const [isOpen, setIsOpen] = useRecoilState(modalState);
-  console.log("header isOpen", isOpen);
   const router = useRouter();
 
   return (

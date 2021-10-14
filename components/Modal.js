@@ -34,8 +34,6 @@ function Modal() {
     });
 
     //get the post ID for the newly created post
-    console.log("New doc added with ID", docRef.id);
-
     //upload the image to firebse storage with the post id
     const imageRef = ref(storage, `posts/${docRef.id}/image`);
 
@@ -61,12 +59,10 @@ function Modal() {
     }
 
     reader.onload = (readerEvent) => {
-      console.log("readerEvent", readerEvent);
       setSelectedFile(readerEvent.target.result);
     };
   };
 
-  console.log("isOpen", isOpen);
   return (
     <Transition.Root show={isOpen} as={Fragment}>
       <Dialog
