@@ -8,11 +8,46 @@ import {
   PaperAirplaneIcon,
 } from "@heroicons/react/outline";
 import { useSession } from "next-auth/react";
-
 import { HeartIcon as HeartIconFilled } from "@heroicons/react/solid";
+import {
+  addDoc,
+  serverTimestamp,
+  collection,
+  query,
+  orderBy,
+  onSnapshot,
+} from "@firebase/firestore";
+import { db } from "../firebase";
+import Moment from "react-moment";
 
 function Post({ id, username, userImg, img, caption }) {
   const { data: session } = useSession();
+  const [newComment, setNewComment] = useState("");
+  const [comments, setComments] = useState([]);
+
+  useEffect(() => {
+    return onSnapshot(
+      query(
+        collection(db, "posts", id, "comments"),
+        orderBy("timestamp", "desc")
+      ),
+      (snapshot) => setComments(snapshot.docs)
+    );
+  }, [db]);
+
+  const sendComment = async (e) => {
+    e.preventDefault();
+
+    const commentToSend = newComment;
+    setNewComment("");
+
+    await addDoc(collection(db, "posts", id, "comments"), {
+      comment: commentToSend,
+      username: session.user.username,
+      userImage: session.user.image,
+      timestamp: serverTimestamp(),
+    });
+  };
   return (
     <div className="bg-white my-7 border rounded-sm">
       {/* Header */}
@@ -46,6 +81,28 @@ function Post({ id, username, userImg, img, caption }) {
         {caption}
       </p>
       {/* comments */}
+      {comments.length > 0 && (
+        <div className="ml-10 h-20 overflow-y-scroll scrollbar-thumb-black scrollbar-thin">
+          {comments.map((comment) => (
+            <div key={comment.id} className="flex items-center space-x-2 mb-3">
+              <img
+                className="h-7 rounded-full"
+                src={comment.data().userImage}
+                alt=""
+              />
+              <p className="text-sm flex-1">
+                <span className="font-bold mr-1">
+                  {comment.data().username}
+                </span>
+                <span>{comment.data().comment}</span>
+              </p>
+              <Moment fromNow interval={10000} className="pr-5 text-xs">
+                {comment.data().timestamp?.toDate()}
+              </Moment>
+            </div>
+          ))}
+        </div>
+      )}
 
       {/* input box */}
       {session && (
@@ -53,10 +110,18 @@ function Post({ id, username, userImg, img, caption }) {
           <EmojiHappyIcon className="h-7" />
           <input
             className="border-none flex-1 focus:ring-0 outline-none"
+            value={newComment}
+            onChange={(e) => setNewComment(e.target.value)}
             type="text"
             placeholder="Add a comment"
           />
-          <button className="font-semibold text-blue-400">Post</button>
+          <button
+            type="submit"
+            disabled={!newComment.trim}
+            onClick={sendComment}
+            className="font-semibold text-blue-400">
+            Post
+          </button>
         </form>
       )}
     </div>
