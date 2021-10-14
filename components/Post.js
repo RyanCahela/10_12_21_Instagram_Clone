@@ -21,7 +21,7 @@ import {
   deleteDoc,
 } from "@firebase/firestore";
 import { db } from "../firebase";
-import Moment from "react-moment";
+import Comments from "./Comments";
 import Caption from "./Caption";
 
 function Post({ id, username, userImg, img, caption }) {
@@ -31,15 +31,17 @@ function Post({ id, username, userImg, img, caption }) {
   const [likes, setLikes] = useState([]);
   const [hasLiked, setHasLiked] = useState(false);
 
-  useEffect(() => {
-    return onSnapshot(
-      query(
-        collection(db, "posts", id, "comments"),
-        orderBy("timestamp", "desc")
-      ),
-      (snapshot) => setComments(snapshot.docs)
-    );
-  }, [db, id]);
+  // const getCommentsOnDbChange = () => {
+  //   return onSnapshot(
+  //     query(
+  //       collection(db, "posts", id, "comments"),
+  //       orderBy("timestamp", "desc")
+  //     ),
+  //     (snapshot) => setComments(snapshot.docs)
+  //   );
+  // };
+
+  const getLikesOnDbChange = () => {};
 
   useEffect(() => {
     return onSnapshot(collection(db, "posts", id, "likes"), (snapshot) => {
@@ -112,29 +114,9 @@ function Post({ id, username, userImg, img, caption }) {
       )}
       {/* caption */}
       <Caption likes={likes} username={username} caption={caption} />
+
       {/* comments */}
-      {comments.length > 0 && (
-        <div className="ml-10 h-20 overflow-y-scroll scrollbar-thumb-black scrollbar-thin">
-          {comments.map((comment) => (
-            <div key={comment.id} className="flex items-center space-x-2 mb-3">
-              <img
-                className="h-7 rounded-full"
-                src={comment.data().userImage}
-                alt=""
-              />
-              <p className="text-sm flex-1">
-                <span className="font-bold mr-1">
-                  {comment.data().username}
-                </span>
-                <span>{comment.data().comment}</span>
-              </p>
-              <Moment fromNow interval={10000} className="pr-5 text-xs">
-                {comment.data().timestamp?.toDate()}
-              </Moment>
-            </div>
-          ))}
-        </div>
-      )}
+      <Comments postId={id} />
 
       {/* input box */}
       {session && (
