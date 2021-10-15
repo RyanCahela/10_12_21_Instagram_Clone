@@ -1,10 +1,10 @@
 import React from "react";
 import { DotsHorizontalIcon } from "@heroicons/react/outline";
 import { postOptionsModalState } from "../atoms/modalAtom";
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 
 function PostHeader({ userImg, username }) {
-  const [_, setIsPostOptionsModalOpen] = useRecoilState(postOptionsModalState);
+  const setIsPostOptionsModalOpen = useSetRecoilState(postOptionsModalState);
   return (
     <div className="flex items-center p-5">
       <img
