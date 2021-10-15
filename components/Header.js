@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useRecoilState } from "recoil";
-import { uploadPhotoModalState } from "../atoms/uploadPhotoModalAtom";
+import { uploadPhotoModalState } from "../atoms/modalAtom";
 
 import {
   SearchIcon,

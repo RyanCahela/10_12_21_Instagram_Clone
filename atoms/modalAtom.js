@@ -5,4 +5,9 @@ export const uploadPhotoModalState = atom({
   default: false,
 });
 
+export const postOptionsModalState = atom({
+  key: "postOptionsModalState",
+  default: false,
+});
+
 //3:51:38

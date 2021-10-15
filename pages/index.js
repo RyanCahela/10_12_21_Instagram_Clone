@@ -3,13 +3,22 @@ import Header from "../components/Header";
 import Feed from "../components/Feed";
 import ModalContainer from "../components/ModalContainer";
 import { useRecoilState } from "recoil";
-import { uploadPhotoModalState } from "../atoms/uploadPhotoModalAtom";
+import {
+  uploadPhotoModalState,
+  postOptionsModalState,
+} from "../atoms/modalAtom";
 import UploadPhotoModal from "../components/UploadPhotoModal";
+import PostOptionsModal from "../components/PostOptionsModal";
 
 export default function Home() {
   const [isUploadPhotoModalOpen, setIsUploadPhotoModalOpen] = useRecoilState(
     uploadPhotoModalState
   );
+
+  const [isPostOptionsModalOpen, setIsPostOptionsModalOpen] = useRecoilState(
+    postOptionsModalState
+  );
+
   return (
     <div className="bg-gray-50 h-screen overflow-y-scroll scrollbar-hide">
       <Head>
@@ -22,6 +31,12 @@ export default function Home() {
         DisplayModal={UploadPhotoModal}
         isOpen={isUploadPhotoModalOpen}
         onClose={() => setIsUploadPhotoModalOpen(false)}
+      />
+
+      <ModalContainer
+        DisplayModal={PostOptionsModal}
+        isOpen={isPostOptionsModalOpen}
+        onClose={() => setIsPostOptionsModalOpen(false)}
       />
 
       {/* Feed */}
