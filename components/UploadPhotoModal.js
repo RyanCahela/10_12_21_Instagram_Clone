@@ -50,15 +50,17 @@ function UploadPhotoModal() {
 
     //upload the image to firebase storage with the post ID
     const imageRef = ref(storage, `posts/${postRef.id}/image`);
-    await uploadString(imageRef, selectedFile, "data_url").then(
-      async (snapshot) => {
+    await uploadString(imageRef, selectedFile, "data_url")
+      .then((snapshot) => {
         //get a download URL from firebase storage and upload to original post in firestore 'posts' collection
-        const downloadUrl = await getDownloadURL(imageRef);
-        await updateDoc(doc(db, `posts`, postRef.id), {
+        return getDownloadURL(imageRef);
+      })
+      .then((downloadUrl) => {
+        return updateDoc(doc(db, "posts", postRef.id), {
           image: downloadUrl,
         });
-      }
-    );
+      });
+
     setUploadPhotoModalIsOpen(false);
     setIsLoading(false);
     setSelectedFile(null);
