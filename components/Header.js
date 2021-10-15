@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useRecoilState } from "recoil";
-import { modalState } from "../atoms/modalAtom";
+import { uploadPhotoModalState } from "../atoms/uploadPhotoModalAtom";
 
 import {
   SearchIcon,
@@ -18,7 +18,9 @@ import { HomeIcon } from "@heroicons/react/outline";
 
 function Header() {
   const { data: session } = useSession();
-  const [isOpen, setIsOpen] = useRecoilState(modalState);
+  const [isUploadPhotoModalOpen, setIsUploadPhotoModalOpen] = useRecoilState(
+    uploadPhotoModalState
+  );
   const router = useRouter();
 
   return (
@@ -73,7 +75,7 @@ function Header() {
                 </div>
               </div>
               <PlusCircleIcon
-                onClick={() => setIsOpen(true)}
+                onClick={() => setIsUploadPhotoModalOpen(true)}
                 className="navButton"
               />
               <UserGroupIcon className="navButton" />

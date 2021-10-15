@@ -6,11 +6,11 @@ import { Dialog } from "@headlessui/react";
 function UploadPhotoModal() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const filePickerRef = useRef();
-  const captionRef = useRef();
+  // const filePickerRef = useRef();
+  // const captionRef = useRef();
 
   return (
-    <div className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
+    <div>
       <div>
         {selectedFile ? (
           <img
@@ -21,7 +21,7 @@ function UploadPhotoModal() {
           />
         ) : (
           <div
-            onClick={() => filePickerRef.current.click()}
+            //onClick={() => filePickerRef.current.click()}
             className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100 cursor-pointer">
             {/* Upload A file */}
             <CameraIcon className="h-6 w-6 text-red-600" aria-hidden="true" />
@@ -38,7 +38,7 @@ function UploadPhotoModal() {
         {/* File Input */}
         <div>
           <input
-            ref={filePickerRef}
+            //ref={filePickerRef}
             type="file"
             hidden
             //onChange={addImageToPost}
@@ -50,7 +50,7 @@ function UploadPhotoModal() {
           <input
             className="border-none focus:ring-0 w-full text-center"
             type="text"
-            ref={captionRef}
+            //ref={captionRef}
             placeholder="Please enter a caption..."
           />
         </div>

@@ -1,9 +1,7 @@
 import React, { Fragment, useRef, useState } from "react";
 import { useRecoilState } from "recoil";
-import { useSession } from "next-auth/react";
-import { modalState } from "../atoms/modalAtom";
+import { modalState } from "../atoms/uploadPhotoModalAtom";
 import { Dialog, Transition } from "@headlessui/react";
-import { CameraIcon } from "@heroicons/react/outline";
 import { db, storage } from "../firebase";
 import {
   addDoc,
@@ -12,17 +10,14 @@ import {
   collection,
   doc,
 } from "@firebase/firestore";
-import { ref, getDownloadURL, uploadString } from "@firebase/storage";
 
-function ModalContainer({ DisplayModal }) {
-  const [isOpen, setIsOpen] = useRecoilState(modalState);
-
+function ModalContainer({ DisplayModal, isOpen, onClose = () => {} }) {
   return (
     <Transition.Root show={isOpen} as={Fragment}>
       <Dialog
         as="div"
         className="fixed z-10 inset-0 overflow-y-0"
-        onClose={() => setIsOpen(false)}>
+        onClose={onClose}>
         <div className="flex times-end justify-center min-h-[800px] sm:min-h-screen pt-4 px-4 pb-28 text-center sm:block sm:p-0">
           <Transition.Child
             as={Fragment}
@@ -49,9 +44,9 @@ function ModalContainer({ DisplayModal }) {
             leave="ease-in duration-200"
             leaveFrom="opacity-100"
             leaveTo="opacity-0">
-            <h1 className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
-              I AM A MODAL
-            </h1>
+            <div className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
+              <DisplayModal />
+            </div>
           </Transition.Child>
         </div>
       </Dialog>
