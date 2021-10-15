@@ -10,7 +10,7 @@ function PostHeader({ userImg, username }) {
         alt=""
       />
       <p className="flex-1 font-bold">{username}</p>
-      <DotsHorizontalIcon className="h-5" />
+      <DotsHorizontalIcon className="h-5 cursor-pointer hover:scale-125 transition-all ease-out duration-300" />
     </div>
   );
 }
