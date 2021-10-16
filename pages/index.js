@@ -15,7 +15,7 @@ export default function Home() {
     uploadPhotoModalState
   );
 
-  const [isPostOptionsModalOpen, setIsPostOptionsModalOpen] = useRecoilState(
+const [isPostOptionsModalOpen, setIsPostOptionsModalOpen] = useRecoilState(
     postOptionsModalState
   );
 
