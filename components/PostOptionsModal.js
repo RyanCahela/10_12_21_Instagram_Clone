@@ -3,7 +3,7 @@ import { useRecoilState } from "recoil";
 import { postOptionsModalState } from "../atoms/modalAtom";
 import { Dialog } from "@headlessui/react";
 import { db, storage } from "../firebase";
-import { deleteDoc, doc } from "@firebase/firestore";
+import { deleteDoc, doc, getDoc } from "@firebase/firestore";
 
 function PostOptionsModal() {
   const [postModalState, setPostOptionsModalState] = useRecoilState(
@@ -18,6 +18,11 @@ function PostOptionsModal() {
       setPostOptionsModalState({ isOpen: false, postId: null });
     });
   };
+
+  const getCollections = async () => {
+    const docRef = await getDoc(doc(db, "posts"));
+  };
+
   return (
     <div>
       <div className="mt-3 text-center sm:mt-5">
@@ -34,6 +39,12 @@ function PostOptionsModal() {
           type="button"
           className="inline-flex justiry-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:text-sm disabled:bg-gray-300 disabled:cursor-not-allowed hover:disabled:bg-gray-300">
           {isLoading ? "Deleting..." : "Delete Post"}
+        </button>
+        <button
+          onClick={getCollections}
+          type="button"
+          className="inline-flex justiry-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:text-sm disabled:bg-gray-300 disabled:cursor-not-allowed hover:disabled:bg-gray-300">
+          Get Collections
         </button>
       </div>
     </div>
