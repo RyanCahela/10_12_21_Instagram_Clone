@@ -3,7 +3,7 @@ import { DotsHorizontalIcon } from "@heroicons/react/outline";
 import { postOptionsModalState } from "../atoms/modalAtom";
 import { useSetRecoilState } from "recoil";
 
-function PostHeader({ userImg, username }) {
+function PostHeader({ userImg, username, postId }) {
   const setIsPostOptionsModalOpen = useSetRecoilState(postOptionsModalState);
   return (
     <div className="flex items-center p-5">
@@ -15,7 +15,9 @@ function PostHeader({ userImg, username }) {
       <p className="flex-1 font-bold">{username}</p>
       <DotsHorizontalIcon
         className="h-5 cursor-pointer hover:scale-125 transition-all ease-out duration-300"
-        onClick={() => setIsPostOptionsModalOpen(true)}
+        onClick={() =>
+          setIsPostOptionsModalOpen({ isOpen: true, postId: postId })
+        }
       />
     </div>
   );

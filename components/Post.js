@@ -28,7 +28,7 @@ function Post({ id, username, userImg, img, caption }) {
   return (
     <div className="bg-white my-7 border rounded-sm">
       {/* Header */}
-      <PostHeader userImg={userImg} username={username} />
+      <PostHeader userImg={userImg} username={username} postId={id} />
 
       {/* img */}
       <img className="object-cover w-full" src={img} alt="" />

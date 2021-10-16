@@ -7,7 +7,10 @@ export const uploadPhotoModalState = atom({
 
 export const postOptionsModalState = atom({
   key: "postOptionsModalState",
-  default: false,
+  default: {
+    isOpen: false,
+    postId: null
+  },
 });
 
 //3:51:38

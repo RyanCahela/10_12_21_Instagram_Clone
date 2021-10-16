@@ -35,8 +35,8 @@ export default function Home() {
 
       <ModalContainer
         DisplayModal={PostOptionsModal}
-        isOpen={isPostOptionsModalOpen}
-        onClose={() => setIsPostOptionsModalOpen(false)}
+        isOpen={isPostOptionsModalOpen.isOpen}
+        //onClose={}
       />
 
       {/* Feed */}
